@@ -6,6 +6,7 @@ import java.util.Hashtable;
 interface Expression {
     Money reduce(Bank bank, String to);
     Expression plus(Expression addend);
+    Expression times(int multiplier);
 }
 
 class Bank {
@@ -70,6 +71,10 @@ class Sum implements Expression {
     public Expression plus(Expression addend) {
         return new Sum(this, addend);
     }
+
+    public Expression times(int multiplier) {
+        return new Sum(augend.times(multiplier), addend.times(multiplier));
+    }
 }
 
 class Money implements Expression {
@@ -107,7 +112,7 @@ class Money implements Expression {
         return currency;
     }
 
-    Expression times(int multiplier) {
+    public Expression times(int multiplier) {
         return new Money(amount * multiplier, currency);
     }
 
