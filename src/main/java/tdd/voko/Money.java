@@ -10,7 +10,7 @@ class Money {
             return false;
         }
         Money money = (Money) o;
-        return amount == money.amount;
+        return amount == money.amount && getClass().equals(money.getClass());
     }
 }
 
