@@ -2,7 +2,7 @@ package tdd.voko;
 
 
 class Dollar {
-    int amount;
+    private final int amount;
 
     Dollar(int amount) {
         this.amount = amount;
