@@ -30,7 +30,7 @@ public class MoneyExampleTest {
     @Test
     public void testCurrency() {
         assertEquals("USD", Money.dollar(1).currency());
-        assertEquals("CHF", Money.franc(1). currency());
+        assertEquals("CHF", Money.franc(1).currency());
     }
 
     @Test
@@ -76,7 +76,7 @@ public class MoneyExampleTest {
 
     @Test
     public void testIdentityRate() {
-        assertEquals(1, new Bank(). rate("USD", "USD"));
+        assertEquals(1, new Bank().rate("USD", "USD"));
     }
 
     @Test
