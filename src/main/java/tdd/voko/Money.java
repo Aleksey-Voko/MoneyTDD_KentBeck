@@ -10,6 +10,16 @@ class Bank {
     }
 }
 
+class Sum implements Expression {
+    Money augend;
+    Money addend;
+
+    Sum(Money augend, Money addend) {
+        this.augend = augend;
+        this.addend = addend;
+    }
+}
+
 class Money implements Expression {
     protected int amount;
     protected String currency;
@@ -50,6 +60,6 @@ class Money implements Expression {
     }
 
     Expression plus(Money addend) {
-        return new Money(amount + addend.amount, currency);
+        return new Sum(this, addend);
     }
 }
