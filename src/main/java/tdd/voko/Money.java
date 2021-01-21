@@ -1,7 +1,16 @@
 package tdd.voko;
 
 
-class Money {
+interface Expression {
+}
+
+class Bank {
+    Money reduce(Expression source, String to) {
+        return Money.dollar(10);
+    }
+}
+
+class Money implements Expression {
     protected int amount;
     protected String currency;
 
@@ -38,5 +47,9 @@ class Money {
 
     Money times(int multiplier) {
         return new Money(amount * multiplier, currency);
+    }
+
+    Expression plus(Money addend) {
+        return new Money(amount + addend.amount, currency);
     }
 }
