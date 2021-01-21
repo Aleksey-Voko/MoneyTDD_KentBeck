@@ -3,16 +3,21 @@ package tdd.voko;
 
 abstract class Money {
     protected int amount;
+    protected String currency;
 
-    abstract String currency();
     abstract Money times(int multiplier);
 
+    Money(int amount, String currency) {
+        this.amount = amount;
+        this.currency = currency;
+    }
+
     static Money dollar(int amount) {
-        return new Dollar(amount);
+        return new Dollar(amount, "USD");
     }
 
     static Money franc(int amount) {
-        return new Franc(amount);
+        return new Franc(amount, "CHF");
     }
 
     @Override
@@ -23,36 +28,40 @@ abstract class Money {
         Money money = (Money) o;
         return amount == money.amount && getClass().equals(money.getClass());
     }
+
+    String currency() {
+        return currency;
+    }
 }
 
 
 class Dollar extends Money {
-    Dollar(int amount) {
-        this.amount = amount;
+    Dollar(int amount, String currency) {
+        super(amount, currency);
     }
 
     @Override
     String currency() {
-        return "USD";
+        return currency;
     }
 
     Money times(int multiplier) {
-        return new Dollar(amount * multiplier);
+        return Money.dollar(amount * multiplier);
     }
 }
 
 
 class Franc extends Money {
-    Franc(int amount) {
-        this.amount = amount;
+    Franc(int amount, String currency) {
+        super(amount, currency);
     }
 
     @Override
     String currency() {
-        return "CHF";
+        return currency;
     }
 
     Money times(int multiplier) {
-        return new Franc(amount * multiplier);
+        return Money.franc(amount * multiplier);
     }
 }
