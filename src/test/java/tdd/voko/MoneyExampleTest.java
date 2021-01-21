@@ -18,5 +18,6 @@ public class MoneyExampleTest {
     @Test
     public void testEquality() {
         assertEquals(new Dollar(5), new Dollar(5));
+        assertNotEquals(new Dollar(6), new Dollar(5));
     }
 }
