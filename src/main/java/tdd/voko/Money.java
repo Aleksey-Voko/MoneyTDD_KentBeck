@@ -1,9 +1,21 @@
 package tdd.voko;
 
 
-class Dollar {
-    private final int amount;
+class Money {
+    protected int amount;
 
+    @Override
+    public boolean equals(Object o) {
+        if (getClass() != o.getClass()) {
+            return false;
+        }
+        Money money = (Money) o;
+        return amount == money.amount;
+    }
+}
+
+
+class Dollar extends Money {
     Dollar(int amount) {
         this.amount = amount;
     }
@@ -11,35 +23,15 @@ class Dollar {
     Dollar times(int multiplier) {
         return new Dollar(amount * multiplier);
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (getClass() != o.getClass()) {
-            return false;
-        }
-        Dollar dollar = (Dollar) o;
-        return amount == dollar.amount;
-    }
 }
 
 
-class Franc {
-    private final int amount;
-
+class Franc extends Money {
     Franc(int amount) {
         this.amount = amount;
     }
 
     Franc times(int multiplier) {
         return new Franc(amount * multiplier);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (getClass() != o.getClass()) {
-            return false;
-        }
-        Franc franc = (Franc) o;
-        return amount == franc.amount;
     }
 }
