@@ -11,11 +11,11 @@ class Money {
     }
 
     static Money dollar(int amount) {
-        return new Dollar(amount, "USD");
+        return new Money(amount, "USD");
     }
 
     static Money franc(int amount) {
-        return new Franc(amount, "CHF");
+        return new Money(amount, "CHF");
     }
 
     @Override
@@ -25,9 +25,9 @@ class Money {
 
     @Override
     public boolean equals(Object o) {
-//        if (getClass() != o.getClass()) {
-//            return false;
-//        }
+        if (getClass() != o.getClass()) {
+            return false;
+        }
         Money money = (Money) o;
         return amount == money.amount && currency().equals(money.currency());
     }
@@ -38,29 +38,5 @@ class Money {
 
     Money times(int multiplier) {
         return new Money(amount * multiplier, currency);
-    }
-}
-
-
-class Dollar extends Money {
-    Dollar(int amount, String currency) {
-        super(amount, currency);
-    }
-
-    @Override
-    String currency() {
-        return currency;
-    }
-}
-
-
-class Franc extends Money {
-    Franc(int amount, String currency) {
-        super(amount, currency);
-    }
-
-    @Override
-    String currency() {
-        return currency;
     }
 }
