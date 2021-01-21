@@ -1,13 +1,53 @@
 package tdd.voko;
 
 
+import java.util.Hashtable;
+
 interface Expression {
-    Money reduce(String to);
+    Money reduce(Bank bank, String to);
 }
 
 class Bank {
+    private Hashtable rates = new Hashtable();
+
     Money reduce(Expression source, String to) {
-        return source.reduce(to);
+        return source.reduce(this, to);
+    }
+
+    int rate(String from, String to) {
+        if (from.equals(to)) {
+            return 1;
+        }
+        Integer rate = (Integer) rates.get(new Pair(from, to));
+        return rate.intValue();
+    }
+
+    void addRate(String from, String to, int rate) {
+        rates.put(new Pair(from, to), Integer.valueOf(rate));
+    }
+
+    private class Pair {
+        private String from;
+        private String to;
+
+        Pair(String from, String to) {
+            this.from = from;
+            this.to = to;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (getClass() != o.getClass()) {
+                return false;
+            }
+            Pair pair = (Pair) o;
+            return from.equals(pair.from) && to.equals(pair.to);
+        }
+
+        @Override
+        public int hashCode() {
+            return 0;
+        }
     }
 }
 
@@ -20,7 +60,7 @@ class Sum implements Expression {
         this.addend = addend;
     }
 
-    public Money reduce(String to) {
+    public Money reduce(Bank bank, String to) {
         int amount = augend.amount + addend.amount;
         return new Money(amount, to);
     }
@@ -69,7 +109,8 @@ class Money implements Expression {
         return new Sum(this, addend);
     }
 
-    public Money reduce(String to) {
-        return this;
+    public Money reduce(Bank bank, String to) {
+        int rate = bank.rate(currency, to);
+        return new Money(amount / rate, to);
     }
 }
