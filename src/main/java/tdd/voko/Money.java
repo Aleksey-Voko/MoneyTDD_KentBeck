@@ -4,6 +4,7 @@ package tdd.voko;
 abstract class Money {
     protected int amount;
 
+    abstract String currency();
     abstract Money times(int multiplier);
 
     static Money dollar(int amount) {
@@ -30,6 +31,11 @@ class Dollar extends Money {
         this.amount = amount;
     }
 
+    @Override
+    String currency() {
+        return "USD";
+    }
+
     Money times(int multiplier) {
         return new Dollar(amount * multiplier);
     }
@@ -39,6 +45,11 @@ class Dollar extends Money {
 class Franc extends Money {
     Franc(int amount) {
         this.amount = amount;
+    }
+
+    @Override
+    String currency() {
+        return "CHF";
     }
 
     Money times(int multiplier) {
